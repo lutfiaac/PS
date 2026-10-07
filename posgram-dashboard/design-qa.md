@@ -208,3 +208,12 @@ Browser checks passed for class-name/chevron links, keyboard Enter navigation, a
 Implementation checklist complete: dedicated route, shared shell, accessible row navigation, return button, preserved global filter context, responsive evidence.
 
 final result: passed
+## Class dashboard aligned with school dashboard — 7 October 2026
+
+Requested structure implemented on the existing dedicated class route: readiness gauge and class distribution, available-data metrics, pupil list, subject breakdown, and priority subtopics. Reused the school dashboard's card anatomy, purple gauge, semantic badges, metrics, subject tiles, segmented subject selector, priority rows, spacing, and responsive rules. All data and item detail actions are scoped to valid results of pupils in the selected class under the active global filters. Unmeasured pupils remain in the list but are excluded from averages/distribution. Assessment totals count distinct valid assessment IDs; limited subtopics remain unranked.
+
+Compared the school source `filters-default-1920.png` with `class-page-1920.png` (1920×1963 full-page capture, 1920×1080 viewport) and `class-page-390.png` (390×2797 full-page capture, 390×1080 viewport), deviceScaleFactor 1. The added class roster and available-data metrics are intentional scope changes. Desktop overview cards align side by side, followed by three metrics; mobile stacks the same cards while preserving five pupil-table columns. Inspected empty-state captures `class-page-empty-1920.png` and `class-page-empty-390.png`: gauges/subjects show em dashes, all five pupils remain unmeasured, and subtopics have no ranks. No new image assets. No actionable P0/P1/P2 visual discrepancies found.
+
+Validation: 29 data tests passed, including class-only subject/subtopic means, distinct assessment totals, active subject scope in empty classes, and existing 64/85 boundaries. Class browser checks passed at 1920, 390, and 320px for section hierarchy, 6A values (42%, 5 registered pupils, 4 measured pupils, 11 unique assessments), subject switching, limited subtopics, subject/subtopic detail actions, status filters, sorting, pupil detail, empty classes, navigation/reload, and preserved global filters. No browser errors or document overflow. Production build passed.
+
+final result: passed

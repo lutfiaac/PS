@@ -35,3 +35,24 @@ test('fully unmeasured class has no mean and empty distribution, while valid zer
  const empty=getClassReadiness([],roster,'6A');assert.equal(empty.aggregate.score,null);assert.equal(empty.aggregate.measured,0);assert.ok(empty.pupils.every(p=>p.status.label==='Belum Terukur'));assert.ok(empty.distribution.every(s=>s.count===0));
  const zero=getClassReadiness([{studentId:1,competenceId:'algebra',assessmentId:'z',score:0}],roster,'6A');assert.equal(zero.aggregate.measured,1);assert.equal(zero.aggregate.score,0);assert.equal(zero.distribution[0].count,1);
 });
+test('class overview, subjects, and subtopics share class scope and count unique valid assessments',()=>{
+ const d=getClassReadiness(rows,roster,'6A',['Matematika','Bahasa Indonesia']);
+ assert.equal(d.totalStudentCount,4);assert.equal(d.assessmentCount,2);
+ assert.deepEqual(d.subjects.map(s=>s.name),['Matematika','Bahasa Indonesia']);
+ assert.equal(d.subjects[0].measured,3);assert.equal(d.subjects[0].score,(38+67+86)/3);
+ assert.equal(d.subjects[1].measured,0);assert.equal(d.subjects[1].score,null);
+ const algebra=d.priorities.find(c=>c.id==='algebra');assert.equal(algebra.measured,3);assert.equal(algebra.score,(38+67+86)/3);
+ assert.equal(d.priorities.find(c=>c.id==='numbers').measured,1);
+ assert.equal(d.priorities.find(c=>c.id==='numbers').sufficient,false);
+ assert.ok(d.priorities.every(c=>c.subject!=='Literasi Gizi'));
+});
+test('filtered class subjects and priorities match parent subject scope, including empty classes',()=>{
+ const dashboard=getDashboard({stage:'pre',period:'2026',category:'Tryout',subject:'Bahasa Indonesia',packageId:'language-a',roster:students});
+ const scope=dashboard.subjects.map(s=>s.name);
+ for(const className of ['6A','6C']){
+  const d=getClassReadiness(dashboard.selected,students,className,scope);
+  assert.deepEqual(d.subjects.map(s=>s.name),['Bahasa Indonesia']);
+  assert.ok(d.priorities.every(c=>c.subject==='Bahasa Indonesia'));
+  assert.equal(d.assessmentCount,new Set(dashboard.selected.filter(r=>students.some(p=>p.id===r.studentId&&p.className===className)).map(r=>r.assessmentId)).size);
+ }
+});

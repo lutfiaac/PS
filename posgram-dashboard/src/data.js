@@ -85,7 +85,7 @@ export function getClassPupilStatus(score){
  if(!Number.isFinite(score)||score<0||score>100)return {label:'Belum Terukur',tone:'neutral'};
  return classPupilCategories.find(category=>score>=category.min&&score<category.max);
 }
-export function getClassReadiness(rows,roster,className){
+export function getClassReadiness(rows,roster,className,subjectNames){
  const members=roster.filter(p=>p.className===className);
  const valid=rows.filter(r=>members.some(p=>p.id===r.studentId)&&competencies.some(c=>c.id===r.competenceId)&&Number.isFinite(r.score)&&r.score>=0&&r.score<=100);
  const aggregate=summarize(valid,members);
@@ -97,7 +97,12 @@ export function getClassReadiness(rows,roster,className){
   const count=pupils.filter(p=>p.status.label===category.label).length;
   return {...category,count,percentage:percent(count,aggregate.measured),proportion:aggregate.measured?count/aggregate.measured*100:0};
  });
- return {aggregate,pupils,distribution};
+ const observedSubjects=[...new Set(rows.map(r=>competencies.find(c=>c.id===r.competenceId)?.subject).filter(Boolean))];
+ const relevantSubjects=subjectNames??(observedSubjects.length?observedSubjects:competencies.map(c=>c.subject));
+ const relevantCompetencies=competencies.filter(c=>relevantSubjects.includes(c.subject));
+ const subjects=[...new Set(relevantCompetencies.map(c=>c.subject))].map(name=>({name,...summarize(valid,members,relevantCompetencies.filter(c=>c.subject===name).map(c=>c.id))}));
+ const priorities=relevantCompetencies.map(c=>({...c,...summarize(valid,members,[c.id])})).sort((a,b)=>Number(b.sufficient)-Number(a.sufficient)||(a.score??101)-(b.score??101));
+ return {aggregate,pupils,distribution,subjects,priorities,totalStudentCount:members.length,assessmentCount:new Set(valid.map(r=>r.assessmentId).filter(Boolean)).size};
 }
 export function selectClassPupils(pupils,{status='all',sort='name'}={}){
  return pupils.filter(p=>status==='all'||p.status.label===status).sort((a,b)=>{
