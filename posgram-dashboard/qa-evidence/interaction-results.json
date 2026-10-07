@@ -1,0 +1,12 @@
+{
+  "results": [
+    "Desktop: hierarchy, count context, no target denominator, category thresholds, subject filter, limited/unranked data, missing-data dash, package/period/stage filters, and mapping passed.",
+    "Distribution empty state: requested heading/helper render without zero-score bars.",
+    "Responsive 390px: no page overflow; primary controls usable.",
+    "Responsive 768px: no page overflow; primary controls usable.",
+    "Responsive 1024px: no page overflow; primary controls usable.",
+    "Responsive 1440px: no page overflow; primary controls usable.",
+    "Browser console: no errors."
+  ],
+  "errors": []
+}

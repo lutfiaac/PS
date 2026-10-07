@@ -1,0 +1,43 @@
+# Prototype Instructions
+
+## Posgram dashboard decisions (7 October 2026)
+
+Keep the 54px top bar fixed to the top of the viewport on desktop and mobile, with a matching body offset so the initial content position is preserved.
+
+Keep the stage toggle without a visible "Tahap Asesmen" label. Omit the metadata row below the filters (period range, stage-only note, and simulation badge), keeping a compact gap before the readiness cards. Preserve accessible names for the stage controls.
+
+Keep "Data yang Tersedia" without the heading-side note "Hasil asesmen pada tahap yang dipilih" or the footer helper "Satu murid dapat memiliki hasil dari lebih dari satu asesmen."
+
+Omit the dashboard footer's simulation/stage-separation note and its accompanying info icon. Retain the "Tentang perhitungan" link.
+
+Preserve the current Posgram styling, components, spacing, and responsive layout. Treat the roster as available accounts, not a reliable school target population. Never show whole-school target denominators, coverage percentages, or coverage statuses. The class table explicitly shows registered group totals (not target coverage), as requested: "Kelas / Kelompok", "Total Murid", "Murid Terukur", "Kesiapan". Keep "Data terbatas" as secondary text under readiness, never a separate data-status column. The unassigned administrative group is a special row after all classes, separated by a divider, with mapping CTA.
+
+Readiness always describes measured pupils and includes its measured pupil count. The prototype flags counts of 1–2 as limited, never ranks these as comparable priorities. Zero measurements produce an em dash, not zero readiness. Distribution percentages are permitted because their denominator is known measured pupils. Distribution title is "Kondisi Kesiapan Murid", with measured count basis, counts as primary information, percentages as support, and visible assessment score bands: Pendampingan <65, Penguatan 65–84, Pengayaan ≥85. Include the requested empty state when no pupils have assessment results.
+
+The user explicitly chose separate simulated assessment marks for readiness status so the default distribution remains 5/6/0 at the new <65/65–84/≥85 boundaries. `assessmentScore` drives these statuses; `score` remains competency-based readiness for the gauge, classes, and subjects. Do not hardcode distribution counts or silently change the existing readiness scores. Filter both data sources by the selected stage, package, period, and measured pupils. Explain the distinction in the status info dialog and prototype documentation.
+
+Place each score-band label beside the category name on the same line, with smaller muted text and an 8px gap; do not put it on a new line or align it at the far edge of the card.
+
+Omit the distribution footnote "Persentase menunjukkan proporsi dari N murid dengan nilai asesmen." Retain the measured-pupil basis below the section title.
+
+Within Kesiapan Murid Terukur, preserve the purple gauge and numeric focus. Interpret the competency-based readiness with a visible badge: <65 Kesiapan Rendah (soft amber), 65 to below 85 Siap dengan Penguatan (amber), >=85 Sangat Siap (green). Keep this separate from the individual assessment-score distribution thresholds. Place the status above the measured-pupil basis beside the gauge; omit the generic readiness-scope sentence. The existing title info icon shows the three category explanations on hover/focus and opens them on click. Omit the footer disclaimer "Nilai ini belum menggambarkan kondisi seluruh murid sekolah." and its accompanying info icon, as requested in the latest revision. Without measured pupils, show an em dash, no category, "Belum ada data kesiapan", and "Nilai kesiapan akan tampil setelah murid memiliki hasil asesmen."
+
+Dashboard order: header/filters → measured pupil readiness and condition distribution → available data → class breakdown with a distinct unassigned group → subjects → subject-filtered subtopics → operational assessment status. Keep unassigned measured pupils in the overall measured-pupil aggregate. Record no assumptions about whole-school representativeness.
+
+Keep the four existing assessment summary cards. Within the same section, show a collapsed-by-default "Sesi Asesmen Aktif & Mendatang — N sesi" accordion. Include only ongoing and scheduled upcoming sessions; ongoing first, then upcoming by nearest start date. Use thin row dividers, not separate session cards. Show the requested empty state inside the expanded accordion when none qualify. Preserve packet/period scope, and let "Lihat Detail" open the full assessment history view, including completed and unscheduled entries. Session dates use the 7 October 2026 demo snapshot and Indonesian formatting.
+
+Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
+
+Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
+
+When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
+
+Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
+
+Use category range copy: Nilai < 65, Nilai 65–84, Nilai ≥ 85. Omit the label beneath the numeric gauge value; retain the card title and measured-pupil basis.
+
+Omit the "Ada data" chip from submaterial detail rows (including the shared submaterial listing). Retain "Data terbatas" and "Belum ada data" indicators when applicable.
+
+Keep the dashboard filter hierarchy Category > Subject > Package > Period. Derive available subjects/packages from the assessment catalog, preserve valid child selections, and reset invalid children to all on parent changes. Package IDs are specific to category/subject; display all defaults and subtle active treatments. Keep the existing 43px controls, icons, radius, and spacing, with content-proportional widths and responsive wrapping. Custom dates are chosen in an inline popover, committed on Terapkan, with inclusive date bounds and validation. Custom ranges cross academic years and exclude undated unscheduled sessions. Apply the same category/subject/package/period scope to all analytics, operational summaries, active/upcoming sessions, detail views, and history. Show the requested global empty-result heading/helper. The local priority subject switch stays within the globally selected scope.
+
+In the existing class drill-down, individual pupil terminology is exclusively Pendampingan (<64), Penguatan (64 to below 85), Pengayaan (>=85), or Belum Terukur when missing. Scope this 64/85 mapping to class drill-down pupils and its distribution, separate from the dashboard's previously requested 65/85 bands and aggregate interpretation labels. Use the same competency-based pupil value already displayed in the class detail to determine its individual status; the class mean stays consistent with the parent class row. Never classify an individual pupil with aggregate labels. Exclude missing/invalid measurements from class mean/distribution; valid zero remains measured. Count distinct measured assessment IDs. Keep absent readiness/count as em dashes, measured pupils first during sorting, and missing pupils last. Preserve filter/sort when opening and returning from pupil detail. The class dashboard opens as a dedicated page at #/kelas/CLASS via class-name links and a chevron within each regular class row. Keep the four existing class-table data columns; place the chevron inside the readiness cell. Preserve the shared top bar/sidebar, return navigation, global filter state, and class pupil sections. Do not use a modal for the class dashboard. Do not alter global dashboard data for illustrative pupil examples.
