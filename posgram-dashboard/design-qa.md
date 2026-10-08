@@ -217,3 +217,127 @@ Compared the school source `filters-default-1920.png` with `class-page-1920.png`
 Validation: 29 data tests passed, including class-only subject/subtopic means, distinct assessment totals, active subject scope in empty classes, and existing 64/85 boundaries. Class browser checks passed at 1920, 390, and 320px for section hierarchy, 6A values (42%, 5 registered pupils, 4 measured pupils, 11 unique assessments), subject switching, limited subtopics, subject/subtopic detail actions, status filters, sorting, pupil detail, empty classes, navigation/reload, and preserved global filters. No browser errors or document overflow. Production build passed.
 
 final result: passed
+
+## Beranda design 1 — initial comparison, 8 October 2026
+
+Source: C:/Users/LENOVO/.codex/generated_images/01a11433-292b-78b2-a56d-9a65b687cd7e/exec-e2a09776-e80a-49ee-ad33-3c5095fb2467.png (1487×1058). Desktop implementation: qa-evidence/home-asiq-1487.png, same 1487×1058 CSS viewport, deviceScaleFactor 1. Both were opened together in the same comparison input. Image placeholders are intentional per explicit user instruction; the supplied product shell remains unchanged. Duplicate breadcrumb text in the generated mock is simplified to one Beranda label.
+
+Initial typography comparison found [P2] smaller hero heading/body/button widths than the source. Fixed desktop hero heading from 36 to 38px, body from 17 to 18px with the same 27px leading, and CTA horizontal padding from 23 to 30px. Compared the revised desktop capture against the same source: focal hierarchy, two-line headline, approximate source proportions, exact UX copy, 450px hero, slide controls, and invitation row align. Minor pixel offsets are P3, not blocking.
+
+[P2] Tablet composition: qa-evidence/home-tablet-before-834.png shows excessive narrow-copy wrapping while the placeholder consumes too much width, plus a compressed invitation description next to its CTA. Fix: favor the copy column at tablet widths and explicitly move the invitation CTA onto the next row when needed. Mobile capture home-asiq-390.png has readable stacked content and working controls; no document overflow.
+
+final result: blocked
+
+## Beranda design 1 — final verification, 8 October 2026
+
+Source truth: C:/Users/LENOVO/.codex/generated_images/01a11433-292b-78b2-a56d-9a65b687cd7e/exec-e2a09776-e80a-49ee-ad33-3c5095fb2467.png. Source pixels 1487×1058. Implementation: qa-evidence/home-asiq-1487.png at 1487×1058 CSS pixels, deviceScaleFactor 1, default ASIQ slide, administrator presentation context, dialog closed. No density resampling needed. Source and final implementation were opened together with original image detail for visual comparison. Desktop source text/controls are readable at that scale, so separate crops were unnecessary for the copy/CTA review.
+
+Comparison history: desktop heading/body/action sizes were corrected after the initial typography finding. The tablet P2 was corrected by giving the copy a larger grid track (2.2fr/0.8fr), narrowing its horizontal padding, and allowing the invitation description to span the row with the CTA beneath. Opened qa-evidence/home-tablet-before-834.png and revised qa-evidence/home-asiq-834.png together: the headline now uses three lines instead of four, actions share one row, and the invitation title/description have readable space. No outstanding P0/P1/P2 issues.
+
+Required fidelity surfaces:
+- Typography: existing Inter family, strong 38px desktop hero heading, 18px body/27px leading, two-line primary headline, 16px action labels; mobile/tablet scale and exact supplied copy preserved. Minor generated-mock glyph/line differences are P3.
+- Spacing/layout: same 54px fixed shell, 246px desktop sidebar, 34px main gutter, 450px desktop carousel, copy/visual grouping, centered selectors, 15px border radii, quieter invitation utility. Mobile stacks the slot/copy and preserves manual controls; tablet proportions corrected as above. Duplicate Beranda breadcrumb in the mock is deliberately reduced to one label.
+- Colors/tokens: reused Posgram purple, pale lavender hero, white utility/buttons, thin existing borders, muted text, and Phosphor outline icons. No new visual language or fabricated decorative UI.
+- Images: supplied logo retained; hero illustrations are deliberately replaced by clearly labeled placeholders at the user's explicit request. No generated or fake replacement art. Configured real assets render with object-fit contain; configuration path is documented.
+- Copy/content: both product headlines/descriptions/CTAs and dashboard highlights follow the brief. Invitation utility and dialog include requested institution context and writing. No join-instansi CTA, duplicate destination cards, or unsupported statistics.
+
+Additional evidence: home-dashboard-1487.png, home-asiq-390.png, home-dashboard-390.png, home-invite-empty-390.png, and home-share-fixture-390.png. Empty code state and the selectable share-message dialog were directly inspected; supplied mock does not specify dialog/mobile composition, so those reuse the established component design system. Share fixture is test-only and not the default homepage state.
+
+Browser checks passed for widths 1487/1440/1024/834/768/390/320: direct and sidebar Beranda routing, active navigation, both slides, chevrons, keyboard slide tabs, dashboard CTA, ASIQ unavailable/configured-link states, dialog opening/closing/focus, default missing code, supplied-code clipboard feedback, native share/fallback/cancellation, denied clipboard feedback, no automatic sharing, permission-hidden UI and permission revocation, asset replacement, Back and reload. No browser console errors, failed responses, or document overflow. Existing full dashboard and class-page browser checks also passed after shared Modal extraction. Final production build passed; no backend, auth, API, or membership logic was added.
+
+Implementation checklist complete: selected composition, requested placeholders, shared shell, carousel, permission-aware presentation, working frontend dialogs/actions, responsive states, existing-page regressions, build, visual comparison, and asset configuration documentation. Real ASIQ URL, institutional join code, and authoritative permissions remain consumer-supplied integration values; defaults honestly show unavailable/empty states.
+
+final result: passed
+
+## Beranda latest reference — 8 October 2026
+
+The latest inline user attachment is the source of truth for this revision and supersedes the earlier generated design 1. Reference main-content image: 1182×613 pixels. Compared it with `qa-evidence/home-layout-reference-1182.png`, captured at 1428×1058 CSS viewport/deviceScaleFactor 1 and cropped to x=246, y=54, width=1182, height=613, excluding the preserved application shell. The brief describes a second screenshot, but only one was attached; the alternate slide uses its supplied copy and the same composition. Image slots deliberately remain placeholders, following the user's explicit asset preference. No new mockup or generated image was sent.
+
+Initial finding P2: the alternate slide's content expanded both desktop cards to 508px, placing footer controls and primary actions below the reference's compact composition. Adjusted alternate-slide heading/body sizing, internal padding and chip spacing. Final cards measure 482px including borders at 1428/1440/1920px viewport widths, remain exactly equal in height, and do not change height between slides. The reference is approximately 480px; the small border/line-position differences are P3. All copy is retained. Desktop column ratio is 2.4:1 with a 20px gap; 24px radii, soft lavender/blue gradients, navy headings, purple CTAs, thin borders and Inter/Phosphor styling match the reference's hierarchy.
+
+Inspected final `home-layout-reference-1182.png`, `home-layout-dashboard-1428.png`, `home-layout-asiq-834.png`, `home-layout-asiq-390.png`, `home-layout-dashboard-390.png`, and `home-layout-invite-empty-390.png`. The header's workspace name follows the active context and omits the unexplained dot. ASIQ is the default; dashboard copy and three feature chips appear together on the alternate slide. Invitation media, eyebrow, title, description, full-width CTA and check helper remain in the right card on desktop. Tablet stacks the hero and invitation with a compact horizontal invitation arrangement; mobile stacks all content. No clipped text, image/copy collision, CTA/footer overlap, document overflow, or actionable P0/P1/P2 findings remain. The shared invitation dialog retains established modal styling and keyboard focus handling.
+
+Browser verification passed at 1920/1440/1428/1280/1024/834/768/390/320px for composition, desktop card alignment, stable slide height, manual and keyboard carousel navigation, dashboard CTA, Back/reload, workspace identity, three placeholder/configured-asset slots, reduced motion, and dialog focus/close. Isolated fixtures verified invitation URL distinct from ASIQ, read-only link, empty/loading/error/retry states, prop updates within an open dialog, clipboard success/denial, native sharing/cancellation and selectable-message fallback. Permission absence/revocation removes the invitation card/link/dialog and expands the hero. No automatic sharing, page errors, failed responses or document overflow. Existing full school/class dashboard browser checks and production build passed. No backend, auth, API or membership logic added.
+
+Integration limitation: the repository supplies no real ASIQ/invitation endpoint. Both URLs remain null in the administrator preview, with honest unavailable states. Consumers supply the active workspace, verified permission results, real URLs, state updates and optional retry callback. UI fixtures use example.com solely within browser verification; they never appear in the normal homepage.
+
+Implementation checklist complete: latest two-column reference, exact requested copy, stable accessible carousel, link invitation card/dialog, permission-dependent layout, responsive states, retained placeholders, consumer integration contract, regression checks and build.
+
+final result: passed
+
+## ASIQ slide supplied artwork — 8 October 2026
+
+Replaced only slide 1's placeholder with the user's “Educator Presenting Connected Learning Dashboards.png”. Copied the 1086×1448 RGBA PNG to `public/assets/asiq-educator.png`; file hashes match the original, preserving all artwork, labels and transparency. Added a soft purple/blue gradient with a small warm tint behind the image and a subtle CSS drop shadow. Slide 2 and invitation images remain placeholders. No image generation or image editing was performed.
+
+Compared the supplied artwork with `qa-evidence/home-educator-1428.png`, `home-educator-390.png`, and `home-educator-320.png`. The whole composition remains visible using object-fit contain; the transparent background blends into the existing lavender hero. Initial desktop spacing placed the illustration too close to the next/previous controls, so it was raised by 12px on desktop. Final image bounds clear the controls, text remains unobstructed, and desktop card heights stay equal at 482px. Mobile places the image beneath the CTA with a 240px display height; the complete illustration remains visible and clear of the footer. No outstanding P0/P1/P2 findings.
+
+Focused browser verification passed at 1920/1428/834/390/320px for actual asset loading, equal desktop card heights, unchanged height during carousel switching, visible image after returning to slide 1, clear image/control spacing, and no document overflow or page errors. Browser font loading is explicitly settled before comparing measurements, avoiding transient font-swap readings. Production build passed. Existing copy, routes, invitation logic and dashboard data were unchanged. Local preview remains available.
+
+final result: passed
+
+## ASIQ replacement artwork enlarged and bottom-right aligned — 8 October 2026
+
+Replaced slide 1's image with the user's latest “Interactive Learning Dashboard with Teacher and Analytics.png” at `public/assets/asiq-learning-dashboard.png`. The original 1086×1448 transparent PNG is preserved byte-for-byte; the superseded asset was removed. Retained the soft gradient and shadow. Desktop/tablet artwork now anchors to the card's bottom-right edge instead of floating centrally in the visual track. At the 1428px viewport, its rendered artwork grows from approximately 293×390px to 370×493px. The card remains 482px tall; only transparent outer padding extends above the clipped card area. The visible artwork remains intact.
+
+Moved desktop carousel navigation into the copy-side footer, preserving its position on both slides and clearing the enlarged illustration. Mobile uses a 320px visual area (300px at the narrowest breakpoint), aligned to the content's right edge beneath the copy, with separate space for footer controls. Existing text, gradients, other image placeholders, routes and invitation behavior remain unchanged.
+
+Compared the supplied artwork with `qa-evidence/home-anchored-1428.png` and `home-anchored-390.png`. The image is visibly larger, the table meets the bottom-right area on desktop, and copy/CTA remain clearly readable. Browser checks passed at 1920/1428/1024/834/768/390/320px for actual asset loading, bottom-right anchoring on desktop/tablet, clear copy/control bounds, stable height across slide changes, returning to slide 1, no horizontal overflow, and no page errors. Desktop card heights remain equal. Production build and whitespace checks passed. No outstanding P0/P1/P2 findings. Local preview remains running.
+
+final result: passed
+
+## Centered carousel navigation — 8 October 2026
+
+Reordered only the existing navigation controls to previous chevron, slide indicators, next chevron. The group is centered at the carousel bottom at every breakpoint with 14px gaps. Preserved existing control sizes, colors, icons, bottom offsets, handlers and keyboard behavior. Removed the old copy-side and breakpoint horizontal offsets. Copy, artwork, gradient, slide layout and all other carousel elements remain unchanged.
+
+Browser checks passed at 1428/834/390/320px for exact control order, center alignment within 1px, 14px spacing, both chevrons, indicator selection and keyboard navigation. Inspected home-centered-navigation-1428-0.png and home-centered-navigation-390-0.png: controls are readable and accessible, with the existing foreground treatment retained where the desktop right chevron overlays the edge of the unchanged illustration. No page errors or document overflow. Production build passed.
+
+final result: passed
+## Supplied slide 2 readiness artwork — 8 October 2026
+
+Added the user's Post-Test Readiness Dashboard (1).png as public/assets/readiness-dashboard.png. The 1448×1086 transparent original is preserved byte-for-byte and shown without cropping in the second slide's visual column. Added a subtle purple shadow and a 220px mobile image height. Retained the purple headline gradient, centered chevron/indicator navigation, copy, chips, CTA and slide 1 artwork. Only the invitation media remains a placeholder.
+
+Compared the supplied artwork with home-readiness-image-1428.png and home-readiness-image-390.png. The complete graphic remains visible, with adequate separation from the copy and navigation. Browser verification passed at 1920/1428/834/390px; at 320px, repeated the check after all font weights and page glyphs were loaded to avoid a transient font-swap measurement. The asset loads, slide heights match, controls work, and no copy/image collision or document overflow remains. Production build passed. No backend or dashboard data changes. No outstanding P0/P1/P2 findings.
+
+final result: passed
+## Bold feature chips with rounded corners — 8 October 2026
+
+Updated the three dashboard-slide chips with 700-weight text, 11px labels, pill radii, comfortable padding, and purple 16px Phosphor duotone icons: ChartLineUp, UsersThree, and Target. Retained the labels and responsive wrapping. Compared home-bold-chips-1428.png and home-bold-chips-390.png with the previous readiness-slide captures: emphasis is stronger, icons remain consistent with the existing library, and mobile wraps into three clear rows without clipping.
+
+Browser checks passed at 1428/834/390/320px for all three chips, bold weight, pill radii, icon sizes, CTA/footer separation, no document overflow and no page errors. Production build passed. No outstanding P0/P1/P2 findings.
+
+final result: passed
+## Invitation collaboration visual built in code — 8 October 2026
+
+Replaced the invitation-media placeholder with InvitationVisual.jsx, as explicitly requested. Native React/CSS/SVG composition uses the existing Phosphor library: a purple/blue community hub, teacher/member/invite nodes, curved dotted connections and a link badge, on a pale gradient with soft shadows. No fabricated names, metrics or status text. All children are decorative; a single image-role label describes the illustration. Preserved the existing media heights, invitation card copy and CTA, permission handling, and dialog. Supplied custom images remain supported; missing/failed assets fall back to the coded illustration.
+
+Inspected home-invitation-code-1428.png and home-invitation-code-390.png: hierarchy and spacing align with the existing card, the central icon is the focal point, and all nodes fit without clipping. Browser verification passed at 1920/1428/834/390/320px for visible illustration, contained node bounds, absence of placeholder/extra controls, usable invitation dialog, no overflow and no page errors. Build passed. No outstanding P0/P1/P2 findings. No mockup or generated image sent to the user.
+
+final result: passed
+
+## Slide 2 replacement with floating ornaments — 8 October 2026
+
+Replaced slide 2 with the supplied Post-Test Readiness Dashboard (2).png at public/assets/readiness-dashboard-v2.png. Source and copied asset have identical SHA-256 hashes. ReadinessVisual.jsx keeps the square transparent image intact and adds four decorative native CSS/SVG widgets: a trend chart, recommendation list, bar chart and education icon. Soft white/lavender containers, shadows and a background glow match the existing carousel. The ornaments float by 6px with a slight rotation over staggered 6.8–8.2 second cycles; the central image stays static. Inactive-slide animations pause, and prefers-reduced-motion disables them.
+
+Production build passed. Browser checks passed at 1920/1428/1280/1024/834/768/390/320px for the correct loaded image, four ornaments, stable slide height, separation from copy/navigation, no horizontal overflow and no page errors. Additional checks at the start, midpoint and end of the animations confirmed the ornaments remain inside the carousel and clear of copy/navigation on six desktop/mobile sizes. Keyboard navigation, actual movement, inactive pause and reduced-motion behavior passed. Inspected home-readiness-motion-1920.png, home-readiness-motion-1428.png, home-readiness-motion-390.png and home-readiness-motion-320.png against the supplied asset: complete image, gentle ornament hierarchy and usable controls. No dashboard data or backend changes; no mockup sent in chat.
+
+final result: passed
+
+## Invitation institution information — 8 October 2026
+
+Added a compact institution container immediately below “Undang Guru ke Instansi”, before the existing description. Uses the active workspace.name with a purple Phosphor Buildings duotone icon, pale lavender fill, light border and 12px radius. The icon is decorative and long names can wrap. Build and browser layout checks passed at 1920/1428/1380/834/390/320px: correct institution name, heading/container/description order, comfortable spacing, equal desktop card heights, no horizontal overflow and no page errors. The invitation dialog remains usable. Captures: home-invitation-workspace-1428.png and home-invitation-workspace-390.png.
+
+final result: passed
+
+## Carousel autoplay every 3 seconds — 8 October 2026
+
+Added automatic alternation between the two existing slides every 3000ms, preserving the centered chevrons/indicators, transitions and layout. Rotation pauses during mouse hover, focus within the carousel, an open dialog or a hidden document; resuming starts a fresh countdown. Automatic transitions keep the existing live region off. Effect cleanup removes timers and the visibility listener when leaving Beranda.
+
+Build passed. Browser verification with a controlled clock passed at 1428/390/320px: no change at 2999ms, a change at 3000ms, repeated 1→2→1 loops, stable carousel height, hover/focus/dialog/visibility pauses, fresh countdown after resume, arrow/indicator/keyboard controls, and fresh autoplay after route unmount/remount. No horizontal overflow or page errors. Visual styling unchanged; no mockup generated.
+
+final result: passed
+
+## Removed Beranda header institution chip — 8 October 2026
+
+Removed the top-right institution chip and its unused responsive styles. The header keeps its title and description; institution information remains in the invitation card and sidebar. Build passed. Browser checks at 1428/390px confirmed no institution chip in the header, the correct institution name in the invitation card, no horizontal overflow and no page errors.
+
+final result: passed

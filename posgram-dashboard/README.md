@@ -55,3 +55,29 @@ Validasi: `tests/class-readiness.test.mjs` dan `scripts/check-class-readiness.mj
 
 Halaman kelas mempertahankan filter global selama navigasi dari/ke dashboard. Chevron ditempatkan di sel Kesiapan sehingga empat kolom data kelas tetap utuh. Kelompok belum memiliki kelas tetap memakai aksi pemetaan. Filter/sorting murid serta aksi detail murid menggunakan komponen kelas yang sama; kelas tidak lagi dibuka dalam modal.
 Dashboard kelas mengikuti struktur dashboard sekolah: overview kesiapan dengan gauge, Kondisi Kesiapan Murid, Data yang Tersedia, Kondisi per Murid, Kondisi per Mata Pelajaran, dan Sub Materi Prioritas. Ringkasan data menampilkan total murid terdaftar, murid terukur, dan jumlah assessmentId unik dengan hasil valid. Tabel murid mempertahankan jumlah asesmen per murid, filter status, sorting, serta aksi detail. Semua mapel, submateri, dan detailnya dihitung hanya dari anggota kelas terpilih dalam scope filter aktif. Submateri dengan kurang dari tiga murid terukur tidak diberi peringkat. Kelas tanpa hasil tetap menampilkan roster dan mapel sesuai scope, dengan kesiapan —.
+
+## Beranda
+
+Buka `http://127.0.0.1:4173/#/beranda` atau pilih Beranda di sidebar. Layout mengikuti referensi terbaru: carousel dua slide di kiri dan kartu Undang Guru ke Instansi di kanan, dengan proporsi sekitar 70:30 dan tinggi sejajar pada desktop. Pada viewport sempit, keduanya ditumpuk. Header menampilkan judul dan deskripsi Beranda tanpa chip instansi di kanan atas. Carousel berganti otomatis setiap 3 detik dengan navigasi chevron, indikator, transisi, dan keyboard; tinggi tetap stabil saat berpindah slide. Pergantian otomatis dijeda saat hover, fokus di dalam carousel, dialog terbuka, atau tab browser tidak aktif, lalu dilanjutkan dengan hitungan 3 detik yang baru. Top bar/sidebar, dashboard sekolah, halaman kelas, filter aktif, dan riwayat existing tetap digunakan. Tidak ada backend baru atau alur bergabung instansi pada Beranda.
+
+Slide ASIQ memakai gambar transparan terbaru yang diberikan pengguna, `public/assets/asiq-learning-dashboard.png`, dengan gradien lembut dan shadow melalui CSS. Gambar diperbesar dan menempel di kanan bawah hero pada desktop/tablet; di mobile gambar tampil lebih besar, rata kanan di bawah copy, dengan ruang khusus untuk kontrol carousel. Artwork asli tidak dimodifikasi. Navigasi tersusun [‹] [indikator slide] [›], terpusat di bawah carousel dengan gap 14px pada semua viewport. Tinggi carousel tetap stabil. Slide kedua memakai gambar transparan pengguna di public/assets/readiness-dashboard-v2.png dengan shadow lembut dan tampilan penuh tanpa crop; kartu undangan memakai visual kolaborasi buatan kode pada src/components/InvitationVisual.jsx (ikon Phosphor, koneksi SVG, dan gradien CSS). Untuk mengganti aset, isi `homeImages` di `src/home-context.js`, misalnya:
+
+```js
+export const homeImages={
+  asiq:'/assets/asiq-learning-dashboard.png',
+  readiness:'/assets/readiness-dashboard-v2.png',
+  invitation:null, // Ilustrasi kolaborasi dari kode; bisa diisi URL aset pengganti.
+};
+```
+
+Aset menggunakan object-fit contain; posisi dan ukuran slot tetap mengikuti layout carousel. Nilai null pada gambar hero menampilkan placeholder; pada invitation, null menampilkan ilustrasi dari kode. Gambar undangan yang gagal dimuat kembali ke ilustrasi native tersebut.
+
+Slide 2 kini memakai gambar terbaru `Post-Test Readiness Dashboard (2).png` di `public/assets/readiness-dashboard-v2.png`, tanpa perubahan pada artwork asli. `src/components/ReadinessVisual.jsx` menambahkan ornamen grafik tren, grafik batang, rekomendasi, dan ikon pendidikan dengan CSS/SVG. Ornamen melayang pelan dengan durasi berbeda; gambar utama tetap diam. Animasi dijeda saat slide tidak aktif dan dimatikan bila pengguna memilih reduced motion.
+
+`HomePage` menerima props `workspace`, `images`, dan opsional `onRetryInvitation`. Preview administrator dipisahkan dalam `home-context.js`; bukan mekanisme otorisasi produksi. Workspace memuat `name`, `permissions`, `invitationUrl`, `invitationStatus`, `invitationError`, dan `asiqUrl`. Nama instansi pada sidebar dan Beranda berasal dari konteks yang sama. Consumer harus memasok konteks dan hasil permission yang valid dari aplikasi existing.
+
+Repository belum menyediakan URL undangan instansi atau route ASIQ. `invitationUrl` dan `asiqUrl` default null dan merupakan dua nilai berbeda. ASIQ menampilkan state akses belum tersedia; CTA Dasbor langsung membuka dashboard existing. Dialog undangan menampilkan link read-only, Salin Link, dan Bagikan. Selama link kosong/loading/error, aksi dinonaktifkan. `invitationStatus: 'loading'` menampilkan spinner; `'error'` menampilkan `invitationError` dan Coba Lagi jika callback diberikan. Consumer dapat memperbarui props saat permintaan existing selesai; tidak ada pengambilan link/API baru pada komponen.
+
+Ketika link asli disediakan, Salin Link menampilkan toast “Link undangan berhasil disalin.” Bagikan memakai native share atau dialog pesan yang dapat disalin. Pembatalan tidak menyatakan berhasil; clipboard yang ditolak menampilkan panduan salin manual. Permission `instansi.invite.share` menentukan akses kartu dan dialog; tanpa izin ini, hero mengisi lebar konten. Permission yang dicabut menutup dialog. Undangan ditujukan untuk instansi POSGRAM dan workspace ASIQ, bukan membagikan URL layanan ASIQ. Tidak ada undangan otomatis atau implementasi onboarding.
+
+Validasi frontend: `node scripts/check-home.mjs` dengan POSGRAM_BROWSER_PATH existing. Script menguji sembilan viewport, tinggi card/slide, route/back/reload, carousel/keyboard, dialog/focus, link kosong/loading/error/retry, salin/share dengan fixture terisolasi, pembatalan/penolakan akses platform, permission termasuk revocation, dan tiga slot gambar. URL example.com hanya fixture pengujian terisolasi, tidak digunakan oleh Beranda default.
