@@ -341,3 +341,11 @@ final result: passed
 Removed the top-right institution chip and its unused responsive styles. The header keeps its title and description; institution information remains in the invitation card and sidebar. Build passed. Browser checks at 1428/390px confirmed no institution chip in the header, the correct institution name in the invitation card, no horizontal overflow and no page errors.
 
 final result: passed
+
+## Centered slide 1 artwork on mobile — 8 October 2026
+
+Centered the ASIQ image below the copy on mobile by removing the expanded width, negative margin and right-only padding, and using object-position:center bottom. Preserved the existing 320px visual height (300px at widths up to 360px), artwork, glow and footer clearance. Desktop/tablet keep their existing bottom-right alignment and 16px right inset.
+
+Build passed. Browser checks at 760/430/390/375/320px verified image and visual centers align with the carousel within 1px, adequate copy/footer spacing, stable height when switching slides, correct loaded asset and no horizontal overflow. Checks at 1428/834px verified desktop/tablet positioning is retained. No page errors. Inspected home-asiq-centered-mobile-390.png: balanced horizontal positioning with complete artwork and clear controls.
+
+final result: passed
